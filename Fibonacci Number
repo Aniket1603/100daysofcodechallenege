@@ -1,0 +1,28 @@
+class Solution {
+    public int fib(int n) {
+        
+    if(n==0)
+    {
+        return 0;
+    
+    }
+    else if(n==1)
+    {
+        return 1;
+    }
+    else
+    {
+        int Firstposition=0;
+        int Secondposition=1;
+
+        for(int i=0;i<n;i++)
+        {
+            int Thirdposion = Firstposition + Secondposition;
+            Firstposition = Secondposition;
+            Secondposition= Thirdposion;
+        }
+       
+    return Firstposition;
+    }
+    }
+}
