@@ -1,0 +1,33 @@
+class Solution {
+    public long maximumValueSum(int[] nums, int k, int[][] edges) {
+
+      int gain_count = 0;
+      int smallest_profit = Integer.MAX_VALUE;
+      int smallest_loss = Integer.MAX_VALUE;
+      long sum = 0;
+      for(int i: nums)
+      {
+        int gain = (i^k) - i;
+        if( gain > 0)
+        {
+            sum+= ( gain + i);
+            gain_count++;
+            smallest_profit = Math.min(smallest_profit,gain);
+        }
+        else
+        {
+            sum += i;
+            smallest_loss = Math.min(smallest_loss,-gain);
+        }
+      }  
+      if(gain_count%2 == 1)
+      { 
+        sum -= Math.min(smallest_profit,smallest_loss);
+        
+      }
+     
+        return sum;
+      
+        
+    }
+}
