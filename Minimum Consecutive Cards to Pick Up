@@ -1,0 +1,20 @@
+import java.util.HashMap;
+
+class Solution {
+    public int minimumCardPickup(int[] cards) {
+        HashMap<Integer, Integer> seen = new HashMap<>();
+        int INF = (int) 1e9; 
+        int best = INF;
+        int N = cards.length;
+        
+        for (int i = 0; i < N; i++) {
+            int c = cards[i];
+            if (seen.containsKey(c)) {
+                best = Math.min(best, i - seen.get(c) + 1);
+            }
+            seen.put(c, i);
+        }
+        
+        return best == INF ? -1 : best;
+    }
+}
