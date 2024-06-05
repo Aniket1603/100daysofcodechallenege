@@ -1,0 +1,30 @@
+
+public class Solution {
+    public List<String> commonChars(String[] A) {
+        int[] total_counts = new int[26];
+        for (int i = 0; i < 26; i++) {
+            total_counts[i] = 1000000;
+        }
+        
+        for (String s : A) {
+            int[] current_counts = new int[26];
+            for (char c : s.toCharArray()) {
+                current_counts[c - 'a']++;
+            }
+            
+            for (int i = 0; i < 26; i++) {
+                total_counts[i] = Math.min(total_counts[i], current_counts[i]);
+            }
+        }
+        
+        List<String> result = new ArrayList<>();
+        for (int i = 0; i < 26; i++) {
+            for (int j = 0; j < total_counts[i]; j++) {
+                result.add(String.valueOf((char) (i + 'a')));
+            }
+        }
+        
+        return result;
+    }
+}
+
