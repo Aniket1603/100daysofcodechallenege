@@ -1,0 +1,19 @@
+class Solution {
+    public int minPatches(int[] nums, int n) {
+        long right = 0; 
+        int count = 0;
+        int i = 0;
+        
+        while (right < n) {
+            if (i < nums.length && nums[i] <= right + 1) {
+                right += nums[i];
+                i++;
+            } else {
+                right += right + 1;
+                count++;
+            }
+        }
+        
+        return count;
+    }
+}
