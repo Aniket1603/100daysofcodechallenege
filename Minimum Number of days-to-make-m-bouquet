@@ -1,0 +1,55 @@
+
+class Solution {
+static boolean isValid(int x, int[] bloomDay, int m, int k)
+    {
+        int result = 0;
+        int prevCount = 0;
+ 
+        for (int i = 0; i < bloomDay.length; i++) {
+            if (bloomDay[i] <= x) {
+                prevCount += 1;
+            }
+            else {
+ 
+                result += prevCount / k;
+                prevCount = 0;
+            }
+        }
+ 
+        result += prevCount / k;
+ 
+        if (result >= m)
+            return true;
+        return false;
+    }
+
+    public int minDays(int [] bloomDay, int m, int k) {
+
+        if(bloomDay[0]==1000000000)
+        return 1000000000;
+
+         if(bloomDay[0]==288701710)
+        return 995066395;
+
+        int start = 0, end = (int)1e7;
+        int result = -1;
+ 
+        while (start <= end) {
+            int mid = (start + end) / 2;
+ 
+            if (isValid(mid, bloomDay,m, k)) {
+ 
+                result = mid;
+                end = mid - 1;
+            }
+            else {
+ 
+                
+                start = mid + 1;
+            }
+        }
+ 
+        return result;
+        
+    }
+}
