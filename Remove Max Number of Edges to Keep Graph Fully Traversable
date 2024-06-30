@@ -1,0 +1,67 @@
+import java.util.*;
+
+class DSU {
+    private int[] parents;
+    private int edges;
+
+    public DSU(int n) {
+        parents = new int[n];
+        for (int i = 0; i < n; i++) {
+            parents[i] = i;
+        }
+        edges = 0;
+    }
+
+    public int find(int x) {
+        if (x != parents[x]) {
+            parents[x] = find(parents[x]);
+        }
+        return parents[x];
+    }
+
+    public int union(int x, int y) {
+        int r1 = find(x);
+        int r2 = find(y);
+
+        if (r1 != r2) {
+            parents[r2] = r1;
+            edges++;
+            return 0;
+        } else {
+            return 1;
+        }
+    }
+
+    public int getEdges() {
+        return edges;
+    }
+}
+
+class Solution {
+    public int maxNumEdgesToRemove(int n, int[][] edges) {
+        DSU alice = new DSU(n + 1);
+        DSU bob = new DSU(n + 1);
+        int ans = 0;
+
+        for (int[] edge : edges) {
+            int t = edge[0], u = edge[1], v = edge[2];
+            if (t == 3) {
+                ans += alice.union(u, v);
+                bob.union(u, v);
+            }
+        }
+
+        for (int[] edge : edges) {
+            int t = edge[0], u = edge[1], v = edge[2];
+            if (t == 1) {
+                ans += alice.union(u, v);
+            } else if (t == 2) {
+                ans += bob.union(u, v);
+            }
+        }
+
+        return (alice.getEdges() == bob.getEdges() && alice.getEdges() == n - 1) ? ans : -1;
+    }
+
+    
+}
