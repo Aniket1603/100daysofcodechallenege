@@ -1,0 +1,29 @@
+class Solution {
+    public int[] nodesBetweenCriticalPoints(ListNode head) {
+        int first = -1, pcp = -1, i = 1, min = Integer.MAX_VALUE;
+        ListNode node = head;
+        ListNode prev = null;
+
+        while (node != null) {
+            if (prev != null && node.next != null) {
+                if ((prev.val > node.val && node.next.val > node.val) || (prev.val < node.val && node.next.val < node.val)) {
+                    if (pcp != -1) {
+                        min = Math.min(min, i - pcp);
+                    }
+                    if (first == -1) {
+                        first = i;
+                    }
+                    pcp = i;
+                }
+            }
+            prev = node;
+            node = node.next;
+            i += 1;
+        }
+        
+        if (first == -1 || first == pcp) {
+            return new int[]{-1, -1};
+        }
+        return new int[]{min, pcp - first};
+    }
+}
