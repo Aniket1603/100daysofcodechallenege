@@ -1,0 +1,31 @@
+public class Find1standLastoccurence
+{
+    static public int first = -1;
+    static public int last = -1;
+    public static void Find1standLastoccurence(String str,char ch,int index)
+    {
+        if(index==str.length())
+        {
+        System.out.println(first);
+         System.out.println(last);
+         return;
+        }
+        if(ch==str.charAt(index))
+        {
+            if(first==-1)
+            {
+                first = index;
+            }
+            else{
+                last = index;
+            }
+        }
+        Find1standLastoccurence(str,ch,index+1);
+    }
+    public static void main(String args[])
+    {
+        String str = "aabhagjhrhank";
+         Find1standLastoccurence(str,'a',0);
+    }
+    
+}
